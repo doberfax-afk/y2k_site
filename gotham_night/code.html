@@ -1191,7 +1191,27 @@ function syncNightClock(){
 /* синхронизация на скролле + на загрузке */
 window.addEventListener('scroll', () => requestAnimationFrame(() => { syncNightClock(); syncThread(); }), { passive: true });
 window.addEventListener('resize', () => { syncNightClock(); syncThread(); });
-syncNightClock(); syncThread();
+syncNightClock();
+
+/* ================= НИТЬ-РЕЛЬСА ================= */
+/* эстафета ночи: цвет узла нити = цвет текущего акта */
+const THREAD_COLORS = ['#ffd23f','#00e5ff','#b8d7ff','#fff3c0','#ff5d8f','#00e5ff','#e8b54d'];
+const rail = document.querySelector('.thread-rail');
+function syncThread(){
+  if(!rail) return;
+  const doc = document.documentElement;
+  const prog = (scrollY) / Math.max(1, doc.scrollHeight - innerHeight);
+  rail.style.setProperty('--progress', prog.toFixed(3));
+  const vh = window.innerHeight;
+  let best = 0, bd = Infinity;
+  scenes.forEach((sc, i) => {
+    const r = sc.getBoundingClientRect();
+    const d = Math.abs(r.top + r.height/2 - vh/2);
+    if (d < bd) { bd = d; best = i; }
+  });
+  rail.style.setProperty('--bead', THREAD_COLORS[best]);
+}
+syncThread();
 
 /* ================= АКТ 6: КОДОВЫЙ ЗАМОК ================= */
 const SECRET = '2111';
@@ -1425,20 +1445,4 @@ pinGo.addEventListener('click', () => {
 });
 pinIn.addEventListener('keydown', e => { if (e.key === 'Enter') pinGo.click(); });
 pinIn.addEventListener('input', () => { pinIn.classList.remove('bad'); status.innerHTML = '<b>Кассета закрыта.</b> Введи код ниже.'; });
-/* эстафета ночи: цвет узла нити = цвет текущего акта */
-const THREAD_COLORS = ['#ffd23f','#00e5ff','#b8d7ff','#fff3c0','#ff5d8f','#00e5ff','#e8b54d'];
-const rail = document.querySelector('.thread-rail');
-function syncThread(){
-  const doc = document.documentElement;
-  const prog = (scrollY) / Math.max(1, doc.scrollHeight - innerHeight);
-  rail.style.setProperty('--progress', prog.toFixed(3));
-  const vh = window.innerHeight;
-  let best = 0, bd = Infinity;
-  scenes.forEach((sc, i) => {
-    const r = sc.getBoundingClientRect();
-    const d = Math.abs(r.top + r.height/2 - vh/2);
-    if (d < bd) { bd = d; best = i; }
-  });
-  rail.style.setProperty('--bead', THREAD_COLORS[best]);
-}
 </script>
