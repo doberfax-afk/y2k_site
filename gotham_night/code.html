@@ -608,9 +608,101 @@ video.scene-art{animation:none;object-fit:cover}
   .panel{opacity:1;transform:none;transition:none}
 }
 
+
+/* ===== НИТЬ-РЕЛЬСА (восстановлено из 3fc20d4) ===== */
+.thread-rail{
+  position:fixed;left:0;top:0;bottom:0;width:6px;z-index:48;
+  background:rgba(12,14,18,.9);
+  border-right:2px solid #000;
+  pointer-events:none;
+}
+.thread-fill{
+  position:absolute;left:0;top:0;width:100%;
+  height:calc(var(--progress, 0) * 100%);
+  background:linear-gradient(180deg,
+    #ffd23f 0%, #00e5ff 22%, #b8d7ff 38%, #fff3c0 54%,
+    #ff5d8f 68%, #00e5ff 82%, #e8b54d 100%);
+  box-shadow:0 0 14px rgba(255,210,63,.45);
+}
+.thread-bead{
+  position:absolute;left:50%;top:calc(var(--progress, 0) * 100%);
+  width:16px;height:16px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  border:2px solid #000;
+  background:var(--bead, #ffd23f);
+  box-shadow:0 0 12px var(--bead, #ffd23f);
+  transition:background .4s ease, box-shadow .4s ease;
+}
+
+}
+/* ============ ЕДИНАЯ НИТЬ ИСТОРИИ: ШВЫ-ПЕРЕХОДЫ ============ */
+/* каждый акт завершается одним и тем же швом — ночь идёт
+   непрерывной нитью. Шов из двух частей:
+   .seam-glint — зарево акта расходится под рваным краем, когда
+                 сцена уходит вверх (едет по тому же --bleed);
+   .seam-time  — таймкод ночи всегда в одном месте шва, как
+                 бусина, нанизанная на общую нить истории. */
+.seam{
+  position:absolute;left:0;right:0;bottom:0;height:13vh;
+  z-index:11;pointer-events:none;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.seam-glint{
+  position:absolute;left:-4%;right:-4%;bottom:3vh;height:115%;
+  pointer-events:none;
+  opacity:calc(var(--bleed, 0) * .95);
+  filter:blur(4px);
+}
+.seam[data-seam="1"] .seam-glint{background:
+  radial-gradient(ellipse 62% 100% at 50% 100%, rgba(255,210,63,.48), transparent 70%),
+  radial-gradient(ellipse 28% 90% at 74% 100%, rgba(0,229,255,.26), transparent 72%)}
+.seam[data-seam="2"] .seam-glint{background:
+  radial-gradient(ellipse 66% 100% at 50% 100%, rgba(0,229,255,.42), transparent 72%),
+  radial-gradient(ellipse 26% 90% at 26% 100%, rgba(255,255,255,.22), transparent 70%)}
+.seam[data-seam="3"] .seam-glint{background:
+  radial-gradient(ellipse 78% 100% at 50% 100%, rgba(190,215,255,.38), transparent 72%)}
+.seam[data-seam="4"] .seam-glint{background:
+  radial-gradient(ellipse 58% 100% at 50% 100%, rgba(255,244,214,.44), transparent 70%)}
+.seam[data-seam="5"] .seam-glint{background:
+  radial-gradient(ellipse 60% 100% at 50% 100%, rgba(255,93,143,.42), transparent 70%),
+  radial-gradient(ellipse 30% 90% at 30% 100%, rgba(192,21,42,.24), transparent 72%)}
+.seam[data-seam="6"] .seam-glint{background:
+  radial-gradient(ellipse 56% 100% at 50% 100%, rgba(0,229,255,.44), transparent 70%)}
+.seam[data-seam="7"] .seam-glint{background:
+  radial-gradient(ellipse 60% 100% at 50% 100%, rgba(232,181,77,.46), transparent 70%)}
+.seam-time{
+  position:relative;z-index:2;
+  font-family:"Impact","Haettenschweiler","Arial Black",sans-serif;
+  letter-spacing:.14em;
+  font-size:clamp(.68rem,1.15vw,.95rem);
+  background:#000;color:var(--paper);
+  border:2px solid var(--paper);border-radius:3px;
+  padding:.24em .85em;margin-bottom:2.2vh;
+  transform:rotate(-1.5deg);
+  box-shadow:3px 3px 0 rgba(0,0,0,.7);
+}
+.seam-time::before{
+  content:"";display:inline-block;
+  width:.55em;height:.55em;margin-right:.5em;
+  background:var(--thread, #fff);border-radius:2px;
+  vertical-align:1px;
+}
+/* цвет нити для каждого акта — по нему передаётся эстафета */
+.scene[data-act="1"]{--thread:#ffd23f}
+.scene[data-act="2"]{--thread:#00e5ff}
+.scene[data-act="3"]{--thread:#b8d7ff}
+.scene[data-act="4"]{--thread:#fff3c0}
+.scene[data-act="5"]{--thread:#ff5d8f}
+.scene[data-act="6"]{--thread:#00e5ff}
+.scene[data-act="7"]{--thread:#e8b54d}
 </style>
 </head>
 <body>
+<div class="thread-rail" aria-hidden="true">
+  <div class="thread-fill"></div>
+  <div class="thread-bead"></div>
+</div>
+
 
 <!-- навигация-фильмострип -->
 <nav class="filmstrip" id="filmstrip" aria-label="Навигация по актам"></nav>
@@ -651,7 +743,11 @@ video.scene-art{animation:none;object-fit:cover}
           </div>
         </div>
       </div>
-  </section>
+    <div class="seam" data-seam="1">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">03:12</p>
+  </div>
+</section>
 
 <!-- АКТ 2 — МУЗЕЙ -->
 <section class="scene" data-act="2">  <video class="scene-art" data-scene-art="2" muted loop playsinline preload="none" poster="img/act2_museum.png"><source src="video/act2_museum.mp4" type="video/mp4"></video>
@@ -681,6 +777,10 @@ video.scene-art{animation:none;object-fit:cover}
         </div>
       </div>
     </div>
+  </div>
+  <div class="seam" data-seam="2">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">03:24</p>
   </div>
 </section>
 
@@ -716,7 +816,11 @@ video.scene-art{animation:none;object-fit:cover}
         </div>
       </div>
     </div>
-  </section>
+    <div class="seam" data-seam="3">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">03:41</p>
+  </div>
+</section>
 
 <!-- АКТ 4 — КРАЙ КРЫШИ -->
 <section class="scene" data-act="4">  <video class="scene-art" data-scene-art="4" muted loop playsinline preload="none" poster="img/act4_rooftop.png"><source src="video/act4_hires.mp4" type="video/mp4"></video>
@@ -756,6 +860,10 @@ video.scene-art{animation:none;object-fit:cover}
       </div>
     </div>
   </div>
+  <div class="seam" data-seam="4">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">03:55</p>
+  </div>
 </section>
 
 <!-- АКТ 5 — ПОЦЕЛУЙ (ПИК) -->
@@ -772,6 +880,10 @@ video.scene-art{animation:none;object-fit:cover}
         <span class="silence-txt">слышишь? это наше время</span>
       </div>
     </div>
+  </div>
+  <div class="seam" data-seam="5">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">04:07</p>
   </div>
 </section>
 
@@ -820,6 +932,10 @@ video.scene-art{animation:none;object-fit:cover}
         Введи код замка — и письмо развернётся.
       </div>
     </div>
+  </div>
+  <div class="seam" data-seam="6">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">04:20</p>
   </div>
 </section>
 
@@ -885,7 +1001,11 @@ video.scene-art{animation:none;object-fit:cover}
     </div>
   </div>
   </div>
-  </section>
+    <div class="seam" data-seam="7">
+    <div class="seam-glint" aria-hidden="true"></div>
+    <p class="seam-time">04:33</p>
+  </div>
+</section>
 
 <script>
 'use strict';
@@ -1069,9 +1189,9 @@ function syncNightClock(){
   if (clockOut) clockOut.textContent = tc + ':00';
 }
 /* синхронизация на скролле + на загрузке */
-window.addEventListener('scroll', () => requestAnimationFrame(syncNightClock), { passive: true });
-window.addEventListener('resize', syncNightClock);
-syncNightClock();
+window.addEventListener('scroll', () => requestAnimationFrame(() => { syncNightClock(); syncThread(); }), { passive: true });
+window.addEventListener('resize', () => { syncNightClock(); syncThread(); });
+syncNightClock(); syncThread();
 
 /* ================= АКТ 6: КОДОВЫЙ ЗАМОК ================= */
 const SECRET = '2111';
@@ -1305,4 +1425,20 @@ pinGo.addEventListener('click', () => {
 });
 pinIn.addEventListener('keydown', e => { if (e.key === 'Enter') pinGo.click(); });
 pinIn.addEventListener('input', () => { pinIn.classList.remove('bad'); status.innerHTML = '<b>Кассета закрыта.</b> Введи код ниже.'; });
+/* эстафета ночи: цвет узла нити = цвет текущего акта */
+const THREAD_COLORS = ['#ffd23f','#00e5ff','#b8d7ff','#fff3c0','#ff5d8f','#00e5ff','#e8b54d'];
+const rail = document.querySelector('.thread-rail');
+function syncThread(){
+  const doc = document.documentElement;
+  const prog = (scrollY) / Math.max(1, doc.scrollHeight - innerHeight);
+  rail.style.setProperty('--progress', prog.toFixed(3));
+  const vh = window.innerHeight;
+  let best = 0, bd = Infinity;
+  scenes.forEach((sc, i) => {
+    const r = sc.getBoundingClientRect();
+    const d = Math.abs(r.top + r.height/2 - vh/2);
+    if (d < bd) { bd = d; best = i; }
+  });
+  rail.style.setProperty('--bead', THREAD_COLORS[best]);
+}
 </script>
