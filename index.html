@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Викулек 21 — две версии сайта</title>
+<title>Викулек — 21 год · личный архив</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
   body {
-    margin: 0; min-height: 100vh; padding: 48px 22px 64px;
+    margin: 0; min-height: 100vh; padding: 56px 22px 72px;
     font-family: 'Trebuchet MS', Verdana, sans-serif; color: #fff;
     background:
       radial-gradient(1200px 700px at 12% -8%, #8B5CF655, transparent 60%),
@@ -17,15 +17,17 @@
       radial-gradient(900px 700px at 50% 110%, #CCFF0022, transparent 60%),
       #100A1C;
   }
-  .wrap { max-width: 1180px; margin: 0 auto; }
-  h1 { font-size: clamp(30px, 6vw, 58px); margin: 0 0 8px; letter-spacing: -.5px;
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .masthead { text-align: center; margin-bottom: 44px; }
+  .kicker { font-size: 12px; letter-spacing: .42em; text-transform: uppercase;
+            color: #FFD600; margin: 0 0 10px; }
+  h1 { font-size: clamp(34px, 7vw, 66px); margin: 0 0 8px; letter-spacing: -.5px;
        background: linear-gradient(96deg, #FF70A6, #FFE600 45%, #38BDF8);
        -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .sub { color: #cdbde8; margin: 0 0 10px; font-size: 17px; }
-  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 34px; }
-  .b { font-size: 12px; padding: 6px 12px; border-radius: 999px;
-       border: 1px solid #ffffff33; background: #ffffff10; color: #e7dcff; }
-  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
+  .sub { color: #cdbde8; margin: 0; font-size: 16px; }
+  .rule { width: 120px; height: 3px; margin: 22px auto 0;
+          background: linear-gradient(90deg, transparent, #FF70A6, #FFE600, #38BDF8, transparent); }
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
   .card {
     position: relative; border-radius: 20px; overflow: hidden; text-decoration: none; color: #fff;
     border: 1px solid #ffffff26; background: #ffffff0a; transition: transform .22s ease, box-shadow .22s ease, border-color .22s;
@@ -34,73 +36,57 @@
                 box-shadow: 0 22px 48px #00000066, 0 0 0 1px #FF70A633; }
   .thumb { aspect-ratio: 16/10; background-size: cover; background-position: top center;
            border-bottom: 1px solid #ffffff1f; }
-  .body { padding: 20px 20px 22px; }
-  .tag { display: inline-block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  .body { padding: 22px 22px 24px; }
+  .tag { display: inline-block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
          padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
   .t1 { background: #FFE600; color: #1a1206; }
-  .t2 { background: #CCFF00; color: #14210a; }
-  h2 { margin: 0 0 8px; font-size: 23px; }
+  .t2 { background: #00E5FF; color: #062126; }
+  h2 { margin: 0 0 8px; font-size: 22px; }
   p { margin: 0 0 12px; color: #cfc2e6; font-size: 14.5px; line-height: 1.55; }
   ul { margin: 0; padding-left: 20px; color: #bdb0d8; font-size: 13.5px; line-height: 1.65; }
   .go { margin-top: 16px; display: inline-block; font-weight: bold; font-size: 14px;
         padding: 10px 18px; border-radius: 12px; background: linear-gradient(96deg,#FF4B91,#8B5CF6); }
-  .foot { margin-top: 34px; padding-top: 20px; border-top: 1px solid #ffffff1a;
-          color: #9c8fba; font-size: 13px; line-height: 1.7; }
-  .foot a { color: #FF70A6; }
-  code { background: #ffffff12; padding: 2px 7px; border-radius: 6px; font-size: 12.5px; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Викулек — 21 год</h1>
-  <p class="sub">Две исправленные версии Y2K-журнала из Google Stitch. Открой любую — обе полностью рабочие.</p>
-  <div class="badges">
-    <span class="b">Все кнопки работают</span>
-    <span class="b">0 JS-ошибок</span>
-    <span class="b">Мобильная вёрстка ок</span>
-    <span class="b">Работает без интернета</span>
-    <span class="b">Клавиатура и скринридеры</span>
+  <div class="masthead">
+    <p class="kicker">Личный архив · спецвыпуск</p>
+    <h1>Викулек — 21 год</h1>
+    <p class="sub">Журнал одной истории: подруги, семья, пушистые хранители и ночь в Готэме</p>
+    <div class="rule"></div>
   </div>
-
-  <a href="greetings/" style="display:block;text-decoration:none;color:inherit;
-     border:1px solid #ffffff3d;background:linear-gradient(100deg,#FFD60022,#FF4B9118);
-     border-radius:16px;padding:22px 24px;margin:0 0 18px;transition:border-color .2s">
-    <div style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#FFD600;margin-bottom:7px">
-      Основное
-    </div>
-    <div style="font-family:Syne,sans-serif;font-weight:800;font-size:24px;margin-bottom:6px">
-      Поздравления: подруги · Милка · семья · пушистые →
-    </div>
-    <div style="color:#cfc2e6;font-size:14.5px">
-      20 карточек в едином стиле, четыре раздела без кликов, секретный код в блоке «Милка»
-    </div>
-  </a>
 
   <div class="grid">
     <a class="card" href="y2k_party_magazine_1/code.html">
       <div class="thumb" style="background-image:url('refs/y2k_party_magazine_1_screen.png')"></div>
       <div class="body">
-        <span class="tag t1">Вариант 1</span>
-        <h2>Винтажный Архив и Ретро-ТВ</h2>
-        <p>Ностальгическая версия: ретро-телевизор с VHS-кассетами и семейное древо.</p>
+        <span class="tag t1">Журнал</span>
+        <h2>Викулек №21 · Личный архив</h2>
+        <p>Шесть разделов одной истории: развороты подруг, послание Милки, древо семьи, пушистые хранители, небо в день рождения и интерактив.</p>
         <ul>
-          <li>4 вкладки: Древо · ТВ · Портрет · Альбом</li>
-          <li>VHS-плеер с 4 кассетами и субтитрами</li>
-          <li>Оракул Пушистых Сил, сейф Жулика, NASA 2005</li>
-          <li>Письмо в 22 года, колесо челленджей</li>
+          <li>Подруги · Милка · Семья · Пушистые · Космос · Интерактив</li>
+          <li>VHS-кассеты, сейф с кодом, альбом воспоминаний</li>
+          <li>Небо NASA ровно на 18 ноября 2005</li>
         </ul>
-        <div class="go">Открыть вариант 1 →</div>
+        <div class="go">Открыть журнал →</div>
       </div>
     </a>
-  </div>
 
-  <div class="foot">
-    <b>Что исправлено в обеих версиях</b><br>
-    · 4 кнопки вкладок и 4 кнопки арены были мёртвыми (вызывали несуществующие функции)<br>
-    · 8 из 18 фото отдавали ошибку 403 — ссылки Google Stitch истекли; заменены стильными заглушками<br>
-    · Видео и все фото теперь лежат локально, сайт работает без интернета<br>
-    · Исправлены 300+ пустых атрибутов, добавлены alt, размеры, язык, клавиатурный доступ<br><br>
-    Отчёт: <code>ОТЧЁТ.md</code> · исходники: <code>src/</code> · сборка: <code>fix_site.py</code>
+    <a class="card" href="gotham_night/code.html">
+      <div class="thumb" style="background-image:url('refs/gotham_night_screen.png')"></div>
+      <div class="body">
+        <span class="tag t2">Комикс</span>
+        <h2>Gotham City. Одна ночь.</h2>
+        <p>Семь актов одной ночи: сигнал, музей, погоня, край крыши, минута тишины, капсула времени и плёнка.</p>
+        <ul>
+          <li>Хроника ночи 03:00 → 04:33</li>
+          <li>Ожившие арты, дождь и молнии</li>
+          <li>Капсула времени №21 с кодом замка</li>
+        </ul>
+        <div class="go">Открыть комикс →</div>
+      </div>
+    </a>
   </div>
 </div>
 </body>

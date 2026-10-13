@@ -1999,15 +1999,7 @@ input, select, textarea {
     <p></p><p class="v1-editorial">История из вашего общего архива появится здесь.</p>
     <div class="v1-media"><div class="v1-media-slot"><b>Видео-воспоминание</b><small>Ожидает настоящий файл</small></div><div class="v1-media-slot"><b>Видеопоздравление</b><small>Ожидает настоящий файл</small></div></div>
   </div></article></div></div></section>
-<section class="milka-personal-album" style="margin-top:30px;padding:25px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,75,145,0.3);border-radius:18px;">
-  <h3 style="font-family:var(--font-heading);color:#ff4b91;margin-bottom:12px;">Личный альбом Милки</h3>
-  <p style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:15px;">Тёплые моменты, кадры и воспоминания, которые дороги сердцу.</p>
-  <div class="milka-album-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;">
-    <div style="background:#1a1528;border-radius:10px;padding:8px;text-align:center;"><img src="../assets/album/mem00.jpg" style="width:100%;height:120px;object-fit:cover;border-radius:6px;" alt="Милка"><span style="font-size:11px;color:#fff;display:block;margin-top:6px;">Начало истории</span></div>
-    <div style="background:#1a1528;border-radius:10px;padding:8px;text-align:center;"><img src="../assets/album/mem01.jpg" style="width:100%;height:120px;object-fit:cover;border-radius:6px;" alt="Милка"><span style="font-size:11px;color:#fff;display:block;margin-top:6px;">Тёплый вечер</span></div>
-    <div style="background:#1a1528;border-radius:10px;padding:8px;text-align:center;"><img src="../assets/album/mem02.jpg" style="width:100%;height:120px;object-fit:cover;border-radius:6px;" alt="Милка"><span style="font-size:11px;color:#fff;display:block;margin-top:6px;">Вместе</span></div>
-  </div>
-</section>
+
 </section><section id="issue-panel-me" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-me" tabindex="-1" hidden><section class="greet-block" id="greet-me" data-b="me">
     <div class="wrap">
       <div class="greet-head">
@@ -2033,7 +2025,85 @@ input, select, textarea {
       <button class="gs-btn gs-btn--more" type="button" onclick="goToTab('me')">
         Открыть интерактив
       </button>
+    
+<section class="milka-album" id="milkaAlbum" aria-labelledby="milkaAlbumTitle">
+  <div class="milka-album-head">
+    <h3 id="milkaAlbumTitle">Альбом воспоминаний</h3>
+    <span class="milka-fact">Side C · {n} кадров</span>
+    <p>Нажми на снимок, чтобы увеличить · листай стрелками</p>
+  </div>
+  <div class="milka-album-strip" id="milkaAlbumStrip" tabindex="0" role="list"
+       aria-label="Альбом воспоминаний Милки"></div>
+  <section class="milka-card" id="milkaPairCard" aria-label="Карточка пары">
+  <div class="milka-pass">
+    <div class="mc-inner">
+      <p class="milka-kicker">Side C · наш пропуск</p>
+      <div class="mc-head"><span>VIP пропуск</span>
+        <span class="mc-sep" aria-hidden="true"></span>
+        <span class="mc-no">№ 21</span></div>
+      <div class="mc-pair">
+        <span class="mc-mono" aria-hidden="true">М</span>
+        <span class="mc-plus" aria-hidden="true">+</span>
+        <span class="mc-mono b" aria-hidden="true">В</span>
+      </div>
+      <p class="mc-names">Милка <span class="mc-amp">&amp;</span> Викулек</p>
+      <div class="mc-perf" aria-hidden="true"></div>
+      <div class="mc-facts">
+        <div class="mc-fact"><span class="mc-lab">дата заведения</span>
+          <span class="mc-val">16.05</span></div>
+        <div class="mc-fact"><span class="mc-lab">статус пропуска</span>
+          <span class="mc-val">действует до бесконечности</span></div>
+      </div>
+      <p class="mc-wish">Вместе на все 21 — и дальше.</p>
     </div>
+  </div>
+</section>
+  <section class="milka-video" id="milkaVideoSlot" aria-label="Видео-воспоминание">
+  <div class="milka-video-shell">
+    <div class="mv-cta">
+      <div class="mv-play" aria-hidden="true">▶</div>
+      <span class="mv-rec">кадр на монтаже</span>
+    </div>
+    <span class="mv-label">Милка · плёнка · сторона C</span>
+  </div>
+  <div class="milka-video-info">
+    <p class="milka-kicker">Side C · движущееся</p>
+    <h4>Видео-воспоминание</h4>
+    <p>Кадр ещё на монтаже. <b>Появится, когда запись будет готова</b> — плёнка уже лежит в архиве.</p>
+  </div>
+</section>
+  <section class="milka-signal" id="milkaSignal" aria-label="Бетсигнал">
+  <div class="ms-head">
+    <div><p class="milka-kicker">Side C · радиоэфир</p>
+      <h3>Бетсигнал</h3></div>
+    <p class="ms-hint">Крутилка ищет волну. Найди частоту — поймаешь сигнал.</p>
+  </div>
+  <div class="ms-dial-wrap">
+    <div class="ms-knob-box">
+      <div class="ms-knob" id="msKnob" role="slider" tabindex="0"
+           aria-label="Настройка частоты радио" aria-valuemin="15.50"
+           aria-valuemax="16.70" aria-valuenow="15.50"
+           aria-describedby="msOut"><i class="ms-tick" aria-hidden="true"></i></div>
+      <span class="ms-readout" id="msReadout">15.50</span>
+    </div>
+    <div class="ms-scale" id="msScale">
+      <i class="ms-needle" id="msNeedle" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="ms-out" id="msOut" aria-live="polite">…шшш… настройтесь на волну…</div>
+  <p class="ms-locked-note" id="msLockedNote">Сигнал пойман · волна 16.05</p>
+</section>
+  <div class="milka-lightbox" id="milkaAlbumLightbox" role="dialog" aria-modal="true"
+       aria-label="Просмотр фотографии">
+    <button class="milka-lb-close" id="milkaLbClose" type="button" aria-label="Закрыть">×</button>
+    <button class="milka-lb-nav milka-lb-prev" id="milkaLbPrev" type="button" aria-label="Предыдущее">‹</button>
+    <figure><img id="milkaLbImg" alt="Фотография из альбома воспоминаний" width="1280" height="960"><figcaption id="milkaLbCap"></figcaption></figure>
+    <button class="milka-lb-nav milka-lb-next" id="milkaLbNext" type="button" aria-label="Следующее">›</button>
+    <span class="milka-lb-count" id="milkaLbCount"></span>
+  </div>
+</section>
+<script>window.__MILKA_ALBUM=[{"src": "../assets/album/mem00.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem01.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem02.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem03.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem04.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem05.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem06.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem07.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem08.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem09.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem10.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem11.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem12.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem13.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem14.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem15.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem16.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem17.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}];</script>
+</div>
   </section></section><section id="issue-panel-family" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-family" tabindex="-1" hidden><section class="greet-block" id="greet-family" data-b="family">
     <div class="wrap">
       <div class="greet-head">
@@ -3088,55 +3158,7 @@ Francesco Antonucci</em>
 </div>
 <button class="btn-y2k btn-primary" onclick="closeModal('modalTimer')">Вернуться к празднику</button>
 
-\n<!-- Клуб Любимых Подруг — перенесён из модального окна на вкладку «Интерактив» -->\n<section class="friends-club" id="friendsClub" aria-label="Клуб любимых подруг">\n
-
-<div class="modal-header-y2k">
-<h2>★ Клуб Любимых Подруг ★</h2>
-<p>Выбери подругу, чтобы перевернуть полароид и включить поздравление!</p>
-</div>
-<div class="friends-strip">
-<div class="friend-box active" onclick="selectFriend('sonya')"><img alt="Соня" class="friend-avatar" src="../assets/people/sonya.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Соня Брат</div></div>
-<div class="friend-box" onclick="selectFriend('polina')"><img alt="Полина" class="friend-avatar" src="../assets/people/polina.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Полина Брат</div></div>
-<div class="friend-box" onclick="selectFriend('kira')"><img alt="Кира" class="friend-avatar" src="../assets/people/kira.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Кира Брат</div></div>
-<div class="friend-box" onclick="selectFriend('vilena')"><img alt="Вилена" class="friend-avatar" src="../assets/people/vilena.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Вилена</div></div>
-<div class="friend-box" onclick="selectFriend('nyutik')"><img alt="Нютик" class="friend-avatar" src="../assets/people/nyutik.jpg" decoding="async" width="384" height="512"><div class="friend-lbl">Нютик</div></div>
-<div class="friend-box" onclick="selectFriend('sofa')" role="button" tabindex="0" aria-label="Софа"><img alt="Софа" class="friend-avatar" src="../assets/people/sofa.jpg" decoding="async" width="400" height="400"><div class="friend-lbl">Софа</div></div>
-<div class="friend-box" onclick="selectFriend('katya')" role="button" tabindex="0" aria-label="Катя"><img alt="Катя" class="friend-avatar" src="../assets/people/katya.jpg" decoding="async" width="400" height="400"><div class="friend-lbl">Катя</div></div>
-</div>
-<div id="friendDetailCard" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.15); text-align: center;">
-<h3 id="friendNameHeader" style="font-family: var(--font-heading); color: #ffd600; margin-bottom: 10px;">Соня Брат</h3>
-<p id="friendGreetingMsg" style="font-style: italic; font-size: 14px; line-height: 1.6; color: #fff; margin-bottom: 15px;">
-          «Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!»
-        </p>
-<button class="btn-y2k btn-party" onclick="spinChallengeWheel()">
-<i class="fa-solid fa-dice"></i> Вращать Челлендж-Рулетку
-        </button>
-<div id="challengeResult" style="margin-top: 15px; font-weight: 700; color: #00f0ff; min-height: 24px;"></div>
-</div>
-\n</section>\n\n<!-- Гадательный салон «Три Фурри-Оракула» — перенесён из модального окна на вкладку «Интерактив» -->\n<section class="oracle-salon" id="oracleSalon" aria-label="Салон трёх фурри-оракулов">\n
-
-<div class="modal-header-y2k">
-<h2>Оракул Пушистых Сил</h2>
-<p>Тёмный Пушистый Триумвират оберегает твой 21-й год</p>
-</div>
-<div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-<button class="btn-y2k txt-light" onclick="castSpell('vilzivul')" style="background: rgba(139, 92, 246, 0.25); border: 1.5px solid #a855f7; color: #fff; font-size: 12px;">
-          🐺 Вильзивул (Страж)
-        </button>
-<button class="btn-y2k txt-light" onclick="castSpell('max')" style="background: rgba(255, 214, 0, 0.25); border: 1.5px solid #ffd600; color: #fff; font-size: 12px;">
-          🐶 Макс (Кристалл Кайфа)
-        </button>
-<button class="btn-y2k txt-light" onclick="castSpell('abadon')" style="background: rgba(255, 75, 145, 0.25); border: 1.5px solid #ff4b91; color: #fff; font-size: 12px;">
-          🐱 Абадон (Сфинкс Тайн)
-        </button>
-</div>
-<div id="oracleDialogueBox" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 20px; text-align: center;">
-<h3 id="oracleGuardianName" style="font-family: var(--font-heading); font-size: 18px; color: #ffd600; margin-bottom: 8px;">Макс • Хранитель Кайфа</h3>
-<p id="oracleGuardianQuote" style="font-size: 14px; font-style: italic; color: #fff; line-height: 1.6;">
-          «Вселенский кристалл заряжен на 100%! В твои 21 год ожидается море вкусностей, радости и безграничной любви!»
-        </p>
-</div>
-\n</section>\n</section>
+\n\n</section>
 </div>
 
 </section>
@@ -3230,8 +3252,8 @@ Francesco Antonucci</em>
       event.currentTarget.classList.add('active');
       const f = friendGreetings[key];
       if (f) {
-        document.getElementById('friendNameHeader').innerText = f.name;
-        document.getElementById('friendGreetingMsg').innerText = f.msg;
+        var _nn=document.getElementById('friendNameHeader');if(_nn)_nn.innerText=f.name;
+        var _b=document.getElementById('friendGreetingMsg');if(_b)_b.innerText=f.msg;
       }
     }
     const partyChallenges = [
@@ -3242,7 +3264,7 @@ Francesco Antonucci</em>
     ];
     function spinChallengeWheel() {
       const res = partyChallenges[Math.floor(Math.random() * partyChallenges.length)];
-      document.getElementById('challengeResult').innerText = "🔥 ВЫПАЛ ЧЕЛЛЕНДЖ: " + res;
+      var _c=document.getElementById('challengeResult');if(_c)_c.innerText = "🔥 ВЫПАЛ ЧЕЛЛЕНДЖ: " + res;
       confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
     }
 
@@ -3256,8 +3278,8 @@ Francesco Antonucci</em>
     function castSpell(hero) {
       const o = oracleQuotes[hero];
       if (o) {
-        document.getElementById('oracleGuardianName').innerText = o.name;
-        document.getElementById('oracleGuardianQuote').innerText = o.quote;
+        var _n=document.getElementById('oracleGuardianName');if(_n)_n.innerText=o.name;
+        var _q=document.getElementById('oracleGuardianQuote');if(_q)_q.innerText=o.quote;
       }
     }
 
@@ -4544,82 +4566,7 @@ function switchRusinovoTab(idx) {
     noTrack();
   }
 })();
-</script><section class="milka-album" id="milkaAlbum" aria-labelledby="milkaAlbumTitle">
-  <div class="milka-album-head">
-    <h3 id="milkaAlbumTitle">Альбом воспоминаний</h3>
-    <span class="milka-fact">Side C · {n} кадров</span>
-    <p>Нажми на снимок, чтобы увеличить · листай стрелками</p>
-  </div>
-  <div class="milka-album-strip" id="milkaAlbumStrip" tabindex="0" role="list"
-       aria-label="Альбом воспоминаний Милки"></div>
-  <section class="milka-card" id="milkaPairCard" aria-label="Карточка пары">
-  <div class="milka-pass">
-    <div class="mc-inner">
-      <p class="milka-kicker">Side C · наш пропуск</p>
-      <div class="mc-head"><span>VIP пропуск</span>
-        <span class="mc-sep" aria-hidden="true"></span>
-        <span class="mc-no">№ 21</span></div>
-      <div class="mc-pair">
-        <span class="mc-mono" aria-hidden="true">М</span>
-        <span class="mc-plus" aria-hidden="true">+</span>
-        <span class="mc-mono b" aria-hidden="true">В</span>
-      </div>
-      <p class="mc-names">Милка <span class="mc-amp">&amp;</span> Викулек</p>
-      <div class="mc-perf" aria-hidden="true"></div>
-      <div class="mc-facts">
-        <div class="mc-fact"><span class="mc-lab">дата заведения</span>
-          <span class="mc-val">16.05</span></div>
-        <div class="mc-fact"><span class="mc-lab">статус пропуска</span>
-          <span class="mc-val">действует до бесконечности</span></div>
-      </div>
-      <p class="mc-wish">Вместе на все 21 — и дальше.</p>
-    </div>
-  </div>
-</section>
-  <section class="milka-video" id="milkaVideoSlot" aria-label="Видео-воспоминание">
-  <div class="milka-video-shell">
-    <div class="mv-cta">
-      <div class="mv-play" aria-hidden="true">▶</div>
-      <span class="mv-rec">кадр на монтаже</span>
-    </div>
-    <span class="mv-label">Милка · плёнка · сторона C</span>
-  </div>
-  <div class="milka-video-info">
-    <p class="milka-kicker">Side C · движущееся</p>
-    <h4>Видео-воспоминание</h4>
-    <p>Кадр ещё на монтаже. <b>Появится, когда запись будет готова</b> — плёнка уже лежит в архиве.</p>
-  </div>
-</section>
-  <section class="milka-signal" id="milkaSignal" aria-label="Бетсигнал">
-  <div class="ms-head">
-    <div><p class="milka-kicker">Side C · радиоэфир</p>
-      <h3>Бетсигнал</h3></div>
-    <p class="ms-hint">Крутилка ищет волну. Найди частоту — поймаешь сигнал.</p>
-  </div>
-  <div class="ms-dial-wrap">
-    <div class="ms-knob-box">
-      <div class="ms-knob" id="msKnob" role="slider" tabindex="0"
-           aria-label="Настройка частоты радио" aria-valuemin="15.50"
-           aria-valuemax="16.70" aria-valuenow="15.50"
-           aria-describedby="msOut"><i class="ms-tick" aria-hidden="true"></i></div>
-      <span class="ms-readout" id="msReadout">15.50</span>
-    </div>
-    <div class="ms-scale" id="msScale">
-      <i class="ms-needle" id="msNeedle" aria-hidden="true"></i>
-    </div>
-  </div>
-  <div class="ms-out" id="msOut" aria-live="polite">…шшш… настройтесь на волну…</div>
-  <p class="ms-locked-note" id="msLockedNote">Сигнал пойман · волна 16.05</p>
-</section>
-  <div class="milka-lightbox" id="milkaAlbumLightbox" role="dialog" aria-modal="true"
-       aria-label="Просмотр фотографии">
-    <button class="milka-lb-close" id="milkaLbClose" type="button" aria-label="Закрыть">×</button>
-    <button class="milka-lb-nav milka-lb-prev" id="milkaLbPrev" type="button" aria-label="Предыдущее">‹</button>
-    <figure><img id="milkaLbImg" alt="Фотография из альбома воспоминаний" width="1280" height="960"><figcaption id="milkaLbCap"></figcaption></figure>
-    <button class="milka-lb-nav milka-lb-next" id="milkaLbNext" type="button" aria-label="Следующее">›</button>
-    <span class="milka-lb-count" id="milkaLbCount"></span>
-  </div>
-</section><script>window.__MILKA_ALBUM=[{"src": "../assets/album/mem00.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem01.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem02.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem03.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem04.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem05.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem06.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem07.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem08.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem09.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem10.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem11.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem12.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem13.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem14.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem15.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem16.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}, {"src": "../assets/album/mem17.jpg", "alt": "Воспоминание из архива Милки", "caption": "", "date": ""}];</script><script id="milka-album-js">
+</script><script id="milka-album-js">
 (function(){
   if(window.__milkaAlbum)return;window.__milkaAlbum=1;
   var strip=document.getElementById('milkaAlbumStrip');
