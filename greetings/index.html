@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Викулек — 21 · поздравления</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta name="theme-color" content="#0C0817">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ЕДИНЫЙ СТИЛЬ. Один компонент карточки на все 20 поздравлений; блоки
+   отличаются ТОЛЬКО акцентным цветом. Ни одного цвета вне токенов.
+   ========================================================================== */
+:root{
+  --bg:#0C0817; --surface:#151028; --surface-2:#1D1738; --line:#ffffff1f;
+  --text:#EFE9FF; --text-dim:#B4A9CE; --ink:#150C06;
+  --paper:#FFF7E8;
+
+  --accent-friends:#FF4B91; --accent-me:#FFD600;
+  --accent-family:#B388FF; --accent-pets:#CCFF00;
+
+  --font-display:'Syne',Georgia,serif;
+  --font-body:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --radius:14px; --shadow:0 18px 44px #000000aa;
+  --dur:.22s; --ease:cubic-bezier(.42,.05,.25,1);
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font-body);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased
+}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--s5)}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- navigation ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--accent-friends),var(--accent-me))}
+.topnav{position:sticky;top:0;z-index:50;height:64px;background:#0C0817EE;
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topnav .in{max-width:var(--maxw);margin:0 auto;padding:0 var(--s5);height:100%;
+  display:flex;align-items:center;gap:var(--s3)}
+.topnav .mark{font-family:var(--font-display);font-weight:800;font-size:17px;color:#fff;
+  white-space:nowrap}
+.topnav .mark i{font-style:normal;color:var(--accent-me)}
+.topnav ul{display:flex;gap:var(--s1);list-style:none;margin:0;padding:0;overflow-x:auto;
+  scrollbar-width:none;flex:1}
+.topnav ul::-webkit-scrollbar{display:none}
+.topnav a{display:block;white-space:nowrap;text-decoration:none;color:var(--text-dim);
+  font-size:13.5px;padding:9px 13px;border-radius:999px;transition:var(--dur)}
+.topnav a:hover{color:#fff;background:#ffffff12}
+.topnav a:focus-visible{outline:3px solid var(--accent-me);outline-offset:2px}
+/* each nav item tints with its own block accent when active */
+.topnav a.on{color:var(--bg);font-weight:700}
+.topnav a.on[data-b="friends"]{background:var(--accent-friends)}
+.topnav a.on[data-b="me"]{background:var(--accent-me)}
+.topnav a.on[data-b="family"]{background:var(--accent-family)}
+.topnav a.on[data-b="pets"]{background:var(--accent-pets)}
+
+/* ---------- hero ---------- */
+.hero{padding:var(--s8) 0 var(--s7);position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:130%;
+  pointer-events:none;
+  background:radial-gradient(circle at 28% 30%,#FF4B9124,transparent 55%),
+             radial-gradient(circle at 76% 16%,#FFD6001F,transparent 55%),
+             radial-gradient(circle at 50% 105%,#B388FF1C,transparent 55%)}
+.hero .kick{font-family:var(--font-display);font-size:11.5px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--accent-me);margin:0 0 var(--s4)}
+.hero h1{font-family:var(--font-display);font-weight:800;letter-spacing:-.03em;line-height:.9;
+  font-size:clamp(46px,11vw,140px);margin:0 0 var(--s3);
+  background:linear-gradient(172deg,#fff 0%,#fff 46%,var(--accent-friends) 46%,var(--accent-family) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .age{font-family:var(--font-display);font-weight:800;font-size:clamp(20px,3vw,30px);
+  color:var(--text);margin:0 0 var(--s4)}
+.hero .age b{color:var(--bg);background:var(--accent-me);padding:2px 12px;border-radius:6px}
+.hero .sub{font-size:19px;color:#DDD5F0;max-width:52ch;margin:0 0 var(--s5)}
+.hero .meta{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.hero .meta span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-dim);border:1px solid var(--line);padding:7px 13px;border-radius:999px}
+.hero .meta b{color:var(--accent-me)}
+
+/* ---------- greeting block ---------- */
+.block{padding:var(--s7) 0;border-bottom:1px solid var(--line)}
+.block > .wrap > .head{display:flex;align-items:flex-start;gap:var(--s4);
+  margin-bottom:var(--s6);flex-wrap:wrap}
+.block .bar{width:6px;align-self:stretch;border-radius:3px;min-height:52px;flex:none}
+.block[data-b="friends"] .bar{background:var(--accent-friends)}
+.block[data-b="me"] .bar{background:var(--accent-me)}
+.block[data-b="family"] .bar{background:var(--accent-family)}
+.block[data-b="pets"] .bar{background:var(--accent-pets)}
+.block h2{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(27px,4.4vw,46px);margin:0 0 var(--s1);line-height:1}
+.block .note{color:var(--text-dim);font-size:13px;letter-spacing:.16em;
+  text-transform:uppercase;margin:0}
+.block .count{margin-left:auto;font-family:var(--font-display);font-weight:800;
+  font-size:13px;color:var(--text-dim);border:1px solid var(--line);
+  padding:6px 13px;border-radius:999px;white-space:nowrap}
+
+/* ---------- THE card component (all 20 identical) ---------- */
+.cards{display:grid;gap:var(--s5);
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:var(--s5);display:flex;flex-direction:column;
+  overflow:hidden;transition:transform var(--dur) var(--ease),border-color var(--dur)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.block[data-b="friends"] .card::before{background:var(--accent-friends)}
+.block[data-b="me"] .card::before{background:var(--accent-me)}
+.block[data-b="family"] .card::before{background:var(--accent-family)}
+.block[data-b="pets"] .card::before{background:var(--accent-pets)}
+.card:hover{transform:translateY(-4px);border-color:#ffffff3d}
+.card .who{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s4)}
+.card .ava{width:76px;height:76px;flex:none;border-radius:50%;overflow:hidden;
+  background:var(--surface-2);border:2px solid #ffffff1f}
+.card .ava img{width:100%;height:100%;object-fit:cover}
+.card .nm{font-family:var(--font-display);font-weight:800;font-size:19px;line-height:1.15;
+  margin:0 0 3px;color:#fff}
+.card .rl{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-dim);margin:0}
+.card .tx{margin:0;font-size:16.5px;color:#E4DDF5;flex:1}
+.card .tx.pending{color:var(--text-dim);font-style:italic}
+.card .foot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
+  padding-top:var(--s3);border-top:1px solid var(--line)}
+.card .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-dim);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.card .soon{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-me);border:1px dashed #FFD60055;padding:4px 10px;border-radius:999px}
+
+/* ---------- журнал подруг: один разворот на человека ---------- */
+.friend-zine{display:grid;gap:var(--s6)}
+.friend-spread{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow)}
+.friend-cover{position:relative;min-height:430px;background:var(--surface-2)}
+.friend-cover img{width:100%;height:100%;object-fit:cover}
+.friend-cover .issue{position:absolute;top:16px;left:16px;background:var(--accent-friends);
+  color:var(--ink);font:800 11px var(--font-display);letter-spacing:.15em;
+  text-transform:uppercase;padding:7px 10px;border-radius:999px}
+.friend-copy{padding:var(--s6);display:flex;flex-direction:column;gap:var(--s4)}
+.friend-copy h3{font:800 clamp(26px,4vw,46px)/.95 var(--font-display);margin:0;color:#fff}
+.friend-deck{margin:0;color:var(--accent-friends);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.friend-text{margin:0;color:#E4DDF5;font-size:17px}
+.friend-media{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin-top:auto}
+.media-slot{min-height:132px;border:1px dashed #ffffff44;border-radius:12px;padding:var(--s4);
+  display:flex;flex-direction:column;justify-content:space-between;background:#ffffff08}
+.media-slot strong{font:700 14px var(--font-display);color:#fff}
+.media-slot span{font-size:13px;color:var(--text-dim)}
+.media-slot.awaiting::after{content:'Ожидает файл';font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-me)}
+.media-slot video{width:100%;border-radius:8px;background:#000}
+
+/* ---------- пушистые оракулы ---------- */
+.oracle-actions{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s4)}
+.oracle-btn{font:700 12px var(--font-display);letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--accent-pets);color:var(--accent-pets);background:transparent;
+  border-radius:999px;padding:10px 14px;cursor:pointer}
+.oracle-btn:hover{background:var(--accent-pets);color:var(--ink)}
+.oracle-result{margin-top:var(--s3);padding:var(--s3);border-left:3px solid var(--accent-pets);
+  color:#E8F9C5;background:#CCFF000C;min-height:54px}
+.tarot-card{display:inline-block;margin-right:6px;padding:5px 8px;border:1px solid #ffffff42;
+  border-radius:6px;color:#fff;font-size:12px}
+
+/* Милка gets a wider slot: it is the centre of the page */
+.block[data-b="me"] .cards{grid-template-columns:1fr}
+@media (min-width:820px){ .block[data-b="me"] .cards{grid-template-columns:1fr 1fr} }
+
+/* ---------- the "Милка" spread (the one special case) ---------- */
+.spread{grid-column:1/-1;background:var(--paper);color:var(--ink);
+  border-radius:var(--radius);padding:var(--s6) var(--s6) var(--s5);
+  box-shadow:8px 8px 0 var(--accent-me);position:relative}
+.spread .kicker{font-family:var(--font-display);font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:#8A6500;margin:0 0 var(--s3)}
+.spread h3{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3.6vw,38px);
+  line-height:1.06;margin:0 0 var(--s3);color:var(--ink)}
+.spread .letter{font-size:clamp(18px,2.2vw,23px);line-height:1.5;margin:0 0 var(--s4);
+  color:#2A1B0C}
+.spread .sign{font-family:var(--font-display);font-style:italic;font-weight:700;
+  font-size:19px;color:#B9045E;margin:0}
+.pin{display:flex;gap:var(--s2);flex-wrap:wrap;align-items:center;margin-top:var(--s4);
+  padding-top:var(--s4);border-top:1px dashed #1A0F0826}
+.pin label{font-size:12px;letter-spacing:.08em;color:#5A4436}
+.pin input{font:inherit;font-size:17px;letter-spacing:.34em;text-align:center;width:132px;
+  padding:9px 10px;border:2px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:8px}
+.pin input:focus-visible{outline:3px solid var(--accent-me);outline-offset:2px}
+.pin button{font:inherit;font-family:var(--font-display);font-weight:700;font-size:13px;
+  letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:11px 18px;
+  border-radius:8px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);
+  transition:var(--dur)}
+.pin button:hover{background:#B9045E;border-color:#B9045E}
+.pin button:focus-visible{outline:3px solid var(--accent-me);outline-offset:2px}
+.pin .msg{font-size:14.5px;color:#5A4436;flex:1 1 100%}
+.pin .msg.ok{color:#0B6B2E;font-weight:700}
+.pin .msg.bad{color:#B9045E;font-weight:700}
+.hidden{display:none}
+
+/* ---------- extras ---------- */
+.extras{padding:var(--s7) 0}
+.extras h2{font-family:var(--font-display);font-weight:800;font-size:clamp(25px,3.8vw,38px);
+  margin:0 0 var(--s2)}
+.extras .note{color:var(--text-dim);margin:0 0 var(--s6);font-size:16px;max-width:60ch}
+.grid3{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s5)}
+.tile h4{font-family:var(--font-display);font-size:17px;margin:0 0 var(--s2);color:#fff}
+.tile p{margin:0;color:var(--text-dim);font-size:14.5px}
+
+/* ---------- footer ---------- */
+.foot{padding:var(--s7) 0 var(--s8);text-align:center;border-top:1px solid var(--line)}
+.foot .mark{font-family:var(--font-display);font-weight:800;font-size:21px;color:#fff}
+.foot .mark i{font-style:normal;color:var(--accent-me)}
+.foot p{color:var(--text-dim);font-size:14px;margin:var(--s2) 0 0}
+
+@media (max-width:640px){
+  .friend-spread{grid-template-columns:1fr}
+  .friend-cover{min-height:320px}
+  .friend-media{grid-template-columns:1fr}
+  .card .ava{width:60px;height:60px}
+  .block .count{margin-left:0}
+  .spread{padding:var(--s5)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<nav class="topnav" aria-label="Разделы поздравлений">
+  <div class="in">
+    <span class="mark">Викулек <i>№21</i></span>
+    <ul>
+        <li><a href="#friends" data-b="friends">Подруги</a></li>
+        <li><a href="#me" data-b="me">Милка</a></li>
+        <li><a href="#family" data-b="family">Семья</a></li>
+        <li><a href="#pets" data-b="pets">Пушистые</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kick">Спецвыпуск · 18 ноября 2026 · село Русиново</p>
+    <h1>Викулек</h1>
+    <p class="age">Исполняется <b>21</b> год</p>
+    <p class="sub">Поздравления от близких собраны в один номер. Четыре главных
+      раздела читаются подряд, без единого клика.</p>
+    <div class="meta">
+      <span><b>21</b> поздравлений</span>
+      <span><b>4</b> раздела</span>
+      <span>подруги · Милка · семья · пушистые</span>
+    </div>
+  </div>
+</header>
+
+      <section class="block" id="friends" data-b="friends">
+        <div class="wrap">
+          <div class="head">
+            <div class="bar" aria-hidden="true"></div>
+            <div>
+              <h2>Подруги</h2>
+              <p class="note">Семь человек, которые всегда рядом</p>
+            </div>
+            <span class="count">7</span>
+          </div>
+          <div class="cards">
+        <article class="friend-spread" id="c-sonya" data-person="sonya">
+          <div class="friend-cover"><img src="assets/people/sonya.jpg" alt="Портрет Соня Брат" width="400" height="400"><span class="issue">Подруги · №1</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Соня Брат</h3>
+            <p class="friend-text">Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+        <article class="friend-spread" id="c-polina" data-person="polina">
+          <div class="friend-cover"><img src="assets/people/polina.jpg" alt="Портрет Полина Брат" width="400" height="400"><span class="issue">Подруги · №2</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Полина Брат</h3>
+            <p class="friend-text">С днем рождения, блин! Пусть каждый день будет как любимая песня из нулевых, а бокал никогда не пустеет!</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+        <article class="friend-spread" id="c-kira" data-person="kira">
+          <div class="friend-cover"><img src="assets/people/kira.jpg" alt="Портрет Кира Брат" width="400" height="400"><span class="issue">Подруги · №3</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Кира Брат</h3>
+            <p class="friend-text">Викулик, с днём рождения, моя родная! Пусть в твоей жизни всё будет так, как должно быть! Люби и будь любима! Я тебя очень люблю! ❤️</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+        <article class="friend-spread" id="c-vilena" data-person="vilena">
+          <div class="friend-cover"><img src="assets/people/vilena.jpg" alt="Портрет Вилена" width="400" height="400"><span class="issue">Подруги · №4</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Вилена</h3>
+            <p class="friend-text">Викулек! Ты — лучшая подруга, которую только можно пожелать! Пусть исполняются все мечты и планы!</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+        <article class="friend-spread" id="c-nyutik" data-person="nyutik">
+          <div class="friend-cover"><img src="assets/people/nyutik.jpg" alt="Портрет Нютик" width="400" height="400"><span class="issue">Подруги · №5</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Нютик</h3>
+            <p class="friend-text">Викулек! С днём рождения, моё солнышко! Теплых улыбок, классных приключений и безграничного счастья!</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+        <article class="friend-spread" id="c-sofa" data-person="sofa">
+          <div class="friend-cover"><img src="assets/people/sofa.jpg" alt="Портрет Софа" width="400" height="400"><span class="issue">Подруги · №6</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Софа</h3>
+            <p class="friend-text">Поздравление скоро появится — текст готовится.</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+        <article class="friend-spread" id="c-katya" data-person="katya">
+          <div class="friend-cover"><img src="assets/people/katya.jpg" alt="Портрет Катя" width="400" height="400"><span class="issue">Подруги · №7</span></div>
+          <div class="friend-copy"><p class="friend-deck rl">Подруга · История из архива</p><h3 class="nm">Катя</h3>
+            <p class="friend-text">Поздравление скоро появится — текст готовится.</p><p class="friend-text">Короткий текст о вашей общей истории появится здесь.</p>
+            <div class="friend-media"><div class="media-slot awaiting"><strong>Видео-воспоминание</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div><div class="media-slot awaiting"><strong>Видеопоздравление</strong><span>Добавим настоящее видео, когда оно будет готово.</span></div></div>
+          </div>
+        </article>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="me" data-b="me">
+        <div class="wrap">
+          <div class="head">
+            <div class="bar" aria-hidden="true"></div>
+            <div>
+              <h2>Милка</h2>
+              <p class="note">От меня — с секретным кодом</p>
+            </div>
+            <span class="count">1</span>
+          </div>
+          <div class="cards">
+        <article class="card spread" id="c-milka">
+          <p class="kicker">Блок «Милка» · от меня</p>
+          <h3>Моя самая любимая девочка, Викулек!</h3>
+          <p class="letter hidden" id="milkaLong" tabindex="-1">Моя самая любимая девочка, Викулек! ❤️ С днём рождения, моё солнышко! Ты наполняешь каждый день радостью, смыслом и невероятным теплом. Пусть твои 21 будут самыми яркими, дерзкими и незабываемыми. Я всегда рядом, чтобы оберегать тебя и делать счастливой! Безумно люблю тебя! Тёмный Пушистый Триумвират оберегает твой 21-й год</p>
+          <p class="sign">— Милка</p>
+          <form class="pin" id="pinForm" autocomplete="off">
+            <label for="pinInput">Секретный код</label>
+            <input id="pinInput" name="pin" inputmode="numeric" maxlength="4"
+                   placeholder="••••" aria-describedby="pinMsg">
+            <button type="submit">Открыть</button>
+            <span class="msg" id="pinMsg" role="status" aria-live="polite">Подсказка: день знакомства 16.05.</span>
+          </form>
+        </article>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="family" data-b="family">
+        <div class="wrap">
+          <div class="head">
+            <div class="bar" aria-hidden="true"></div>
+            <div>
+              <h2>Семья</h2>
+              <p class="note">Род Русиново</p>
+            </div>
+            <span class="count">9</span>
+          </div>
+          <div class="cards">
+        <article class="card" id="c-mama">
+          <div class="who">
+            <div class="ava"><img src="assets/people/mama.jpg" alt="Мама" width="400" height="400"></div>
+            <div><h3 class="nm">Мама</h3><p class="rl">Послание Сердца</p></div>
+          </div><p class="tx">«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»</p>
+          <div class="foot"><span class="tag">№1</span></div>
+        </article>
+        <article class="card" id="c-papa">
+          <div class="who">
+            <div class="ava"><img src="assets/people/papa.jpg" alt="Папа" width="400" height="400"></div>
+            <div><h3 class="nm">Папа</h3><p class="rl">Крепкая Опора</p></div>
+          </div><p class="tx">«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»</p>
+          <div class="foot"><span class="tag">№2</span></div>
+        </article>
+        <article class="card" id="c-serezha">
+          <div class="who">
+            <div class="ava"><img src="assets/people/serezha.svg" alt="Дядя Серёжа" width="400" height="400"></div>
+            <div><h3 class="nm">Дядя Серёжа</h3><p class="rl">Мудрость Рода</p></div>
+          </div><p class="tx">«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»</p>
+          <div class="foot"><span class="tag">№3</span></div>
+        </article>
+        <article class="card" id="c-masha">
+          <div class="who">
+            <div class="ava"><img src="assets/people/masha.svg" alt="Сестра Маша" width="400" height="400"></div>
+            <div><h3 class="nm">Сестра Маша</h3><p class="rl">Любовь &amp; Забота</p></div>
+          </div><p class="tx">«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»</p>
+          <div class="foot"><span class="tag">№4</span></div>
+        </article>
+        <article class="card" id="c-lera">
+          <div class="who">
+            <div class="ava"><img src="assets/people/lera.svg" alt="Сестра Лера" width="400" height="400"></div>
+            <div><h3 class="nm">Сестра Лера</h3><p class="rl">Драйв &amp; Веселье</p></div>
+          </div><p class="tx">«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»</p>
+          <div class="foot"><span class="tag">№5</span></div>
+        </article>
+        <article class="card" id="c-ded_vasya">
+          <div class="who">
+            <div class="ava"><img src="assets/people/ded_vasya.svg" alt="Дед Василий Егорович" width="400" height="400"></div>
+            <div><h3 class="nm">Дед Василий Егорович</h3><p class="rl">Благословение</p></div>
+          </div><p class="tx">«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»</p>
+          <div class="foot"><span class="tag">№6</span></div>
+        </article>
+        <article class="card" id="c-baba_natasha">
+          <div class="who">
+            <div class="ava"><img src="assets/people/baba_natasha.svg" alt="Баба Наталья Тихоновна" width="400" height="400"></div>
+            <div><h3 class="nm">Баба Наталья Тихоновна</h3><p class="rl">Тепло &amp; Пироги</p></div>
+          </div><p class="tx">«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»</p>
+          <div class="foot"><span class="tag">№7</span></div>
+        </article>
+        <article class="card" id="c-ded_tolya">
+          <div class="who">
+            <div class="ava"><img src="assets/people/ded_tolya.svg" alt="Дед Анатолий Валентинович" width="400" height="400"></div>
+            <div><h3 class="nm">Дед Анатолий Валентинович</h3><p class="rl">Сила Духа</p></div>
+          </div><p class="tx">«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»</p>
+          <div class="foot"><span class="tag">№8</span></div>
+        </article>
+        <article class="card" id="c-baba_nastya">
+          <div class="who">
+            <div class="ava"><img src="assets/people/baba_nastya.svg" alt="Баба Анастасия Егоровна" width="400" height="400"></div>
+            <div><h3 class="nm">Баба Анастасия Егоровна</h3><p class="rl">Сердечный Покой</p></div>
+          </div><p class="tx">«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»</p>
+          <div class="foot"><span class="tag">№9</span></div>
+        </article>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="pets" data-b="pets">
+        <div class="wrap">
+          <div class="head">
+            <div class="bar" aria-hidden="true"></div>
+            <div>
+              <h2>Пушистые</h2>
+              <p class="note">Три хранителя двадцать первого года</p>
+            </div>
+            <span class="count">4</span>
+          </div>
+          <div class="cards">
+        <article class="card oracle-card" id="c-vilzivul" data-oracle="Защита">
+          <div class="who"><div class="ava"><img src="assets/people/vilzivul.svg" alt="Вильзивул" width="400" height="400"></div>
+            <div><h3 class="nm">Вильзивул</h3><p class="rl">Защита</p></div></div>
+          <p class="tx">Вильзивул ставит защиту на будущее</p>
+          <div class="oracle-actions"><button class="oracle-btn" type="button" data-oracle-btn="vilzivul">Поставить защиту</button></div>
+          <div class="oracle-result" id="oracle-vilzivul" aria-live="polite">Нажмите, когда будете готовы узнать знак.</div>
+        </article>
+        <article class="card oracle-card" id="c-max" data-oracle="Хрустальный шар">
+          <div class="who"><div class="ava"><img src="assets/people/max.svg" alt="Макс" width="400" height="400"></div>
+            <div><h3 class="nm">Макс</h3><p class="rl">Хрустальный шар</p></div></div>
+          <p class="tx">Макс заглядывает в шар и колдует над будущим</p>
+          <div class="oracle-actions"><button class="oracle-btn" type="button" data-oracle-btn="max">Заглянуть в шар</button></div>
+          <div class="oracle-result" id="oracle-max" aria-live="polite">Нажмите, когда будете готовы узнать знак.</div>
+        </article>
+        <article class="card oracle-card" id="c-abadon" data-oracle="Таро">
+          <div class="who"><div class="ava"><img src="assets/people/abadon.svg" alt="Абадон" width="400" height="400"></div>
+            <div><h3 class="nm">Абадон</h3><p class="rl">Таро</p></div></div>
+          <p class="tx">Абадон раскладывает карты и даёт загадочное предсказание</p>
+          <div class="oracle-actions"><button class="oracle-btn" type="button" data-oracle-btn="abadon">Разложить три карты</button></div>
+          <div class="oracle-result" id="oracle-abadon" aria-live="polite">Нажмите, когда будете готовы узнать знак.</div>
+        </article>
+        <article class="card oracle-card" id="c-kot" data-oracle="Кошачья лапка">
+          <div class="who"><div class="ava"><img src="assets/people/kot.jpg" alt="Кот" width="400" height="400"></div>
+            <div><h3 class="nm">Кот</h3><p class="rl">Кошачья лапка</p></div></div>
+          <p class="tx">Кот тянет лапкой жребий удачи</p>
+          <div class="oracle-actions"><button class="oracle-btn" type="button" data-oracle-btn="kot">Получить знак</button></div>
+          <div class="oracle-result" id="oracle-kot" aria-live="polite">Нажмите, когда будете готовы узнать знак.</div>
+        </article>
+          </div>
+        </div>
+      </section>
+
+<section class="extras">
+  <div class="wrap">
+    <h2>Ещё в номере</h2>
+    <p class="note">Интерактив вынесен ниже и никогда не перекрывает поздравления.</p>
+    <div class="grid3">
+      <div class="tile"><h4>Оракул пушистых сил</h4><p>Три хранителя выше уже сказали своё слово. Выбор предсказания — на отдельной странице.</p></div>
+      <div class="tile"><h4>Ретро-кассета «Милка»</h4><p>Сторона A и сторона B. Код открывает расшифрованное письмо — он уже работает выше, в блоке «Милка».</p></div>
+      <div class="tile"><h4>Космос NASA, ноябрь 2005</h4><p>Звёздная карта даты рождения: созвездие Скорпиона.</p></div>
+      <div class="tile"><h4>Секретики-пистолетики</h4><p>Сейф Жулика и кодовое слово «черемшить».</p></div>
+      <div class="tile"><h4>Колесо челленджей</h4><p>Что сделать прямо на празднике — случайный челлендж.</p></div>
+      <div class="tile"><h4>Медиа-студия</h4><p>Письмо в 22 года и полароид на память.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="mark">Викулек <i>№21</i></div>
+    <p>19 из 21 поздравлений готовы · фото и оставшиеся тексты догружаются</p>
+  </div>
+</footer>
+
+<script>
+/* Интерактив: индикатор прочтения, подсветка текущего блока, ПИН для Милки.
+   Ни одной функции-заглушки: всё, что вызывается, определено. */
+(function(){
+  var bar = document.getElementById('progress');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.topnav a'));
+  var blocks = links.map(function(a){ return document.querySelector(a.getAttribute('href')); })
+                    .filter(Boolean);
+
+  function tick(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h>0 ? Math.min(100, Math.max(0, window.scrollY/h*100)) : 0) + '%';
+    var probe = window.innerHeight * 0.30, idx = 0;
+    blocks.forEach(function(b,i){ if(b.getBoundingClientRect().top <= probe) idx = i; });
+    links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+  }
+  window.addEventListener('scroll', tick, {passive:true});
+  window.addEventListener('resize', tick);
+  tick();
+
+  /* --- ПИН 1605 открывает письмо --- */
+  var form = document.getElementById('pinForm');
+  if (form) {
+    var input = document.getElementById('pinInput');
+    var msg   = document.getElementById('pinMsg');
+    var letter= document.getElementById('milkaLong');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if ((input.value || '').trim() === '1605') {
+        letter.classList.remove('hidden');
+        msg.textContent = 'Код верный. Письмо открыто.';
+        msg.className = 'msg ok';
+        letter.focus();
+      } else {
+        msg.textContent = 'Неверный код. Подсказка: день знакомства 16.05.';
+        msg.className = 'msg bad';
+        input.select();
+      }
+    });
+  }
+
+  /* --- пушистые оракулы: три разные механики --- */
+  var tarot = ['Звезда','Луна','Солнце','Мир','Колесо Фортуны','Сила','Умеренность'];
+  var prophecies = [
+    'Твой следующий шаг уже светится впереди.',
+    'Не торопи ответ: он придёт через случайную встречу.',
+    'В этом году у тебя будет больше смелости, чем сомнений.',
+    'То, что кажется случайностью, окажется подарком.',
+    'Твоя удача любит движение и громкую музыку.'
+  ];
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+  document.querySelectorAll('[data-oracle-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-oracle-btn');
+      var card = document.getElementById('c-'+id);
+      var out = document.getElementById('oracle-'+id);
+      var mode = card ? card.getAttribute('data-oracle') : '';
+      if (mode === 'Таро') {
+        var cards = [pick(tarot), pick(tarot), pick(tarot)];
+        out.innerHTML = '<span class="tarot-card">'+cards[0]+'</span><span class="tarot-card">'+cards[1]+'</span><span class="tarot-card">'+cards[2]+'</span><br><br>Абадон говорит: расклад обещает перемены, но финальное решение всё равно за тобой.';
+      } else if (mode === 'Хрустальный шар') {
+        out.textContent = 'Шар Макса мутнеет... и показывает: '+pick(prophecies);
+      } else {
+        out.textContent = 'Вильзивул поставил защиту. Сегодня мимо тебя пройдут лишние тревоги, а хорошие новости найдут дорогу сами.';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

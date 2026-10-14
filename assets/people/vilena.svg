@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400"
+     role="img" aria-label="Вилена — портрет">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF4B91"/>
+      <stop offset="100%" stop-color="#B9045E"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#FF4B91" stop-opacity=".38"/>
+      <stop offset="100%" stop-color="#FF4B91" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="#2A0616"/>
+  <rect width="400" height="400" fill="url(#glow)"/>
+  <g transform="rotate(111 200 200)" opacity=".30" fill="none" stroke="#FF4B91" stroke-width="2">
+    <circle cx="200" cy="200" r="150"/>
+    <circle cx="200" cy="200" r="124" stroke-dasharray="6 10"/>
+  </g>
+  <circle cx="200" cy="192" r="86" fill="url(#g)"/>
+  <text x="200" y="192" text-anchor="middle" dominant-baseline="central"
+        font-family="Syne,Verdana,DejaVu Sans,sans-serif" font-size="76" font-weight="800"
+        fill="#2A0616">В</text>
+  <text x="200" y="322" text-anchor="middle"
+        font-family="Verdana,DejaVu Sans,sans-serif" font-size="17" letter-spacing="2.4"
+        fill="#FF4B91" opacity=".9">ПОДРУГА</text>
+  <text x="200" y="352" text-anchor="middle"
+        font-family="Verdana,DejaVu Sans,sans-serif" font-size="13" letter-spacing="1.6"
+        fill="#ffffff" opacity=".32">ФОТО СКОРО</text>
+</svg>
