@@ -272,7 +272,12 @@ body{
   pointer-events:none;
 }
 .scene[data-act="7"].started .scene-rest{opacity:0}
-/* до запуска видео статично и приглушено */
+.scene[data-act="7"].capsule-open .scene-rest{opacity:0}
+/* до ввода кода: капсула не открыта -> акт 7 заперт (кнопка скрыта) */
+.scene[data-act="7"] .act7-cta{visibility:hidden}
+.scene[data-act="7"].capsule-open .act7-cta{visibility:visible}
+.scene[data-act="7"] .act7-cta .caption{box-shadow:5px 5px 0 #000}
+/* до ввода кода видео статично и приглушено */
 .scene[data-act="7"] video.scene-art{filter:brightness(.32) saturate(.5)}
 .scene[data-act="7"].started video.scene-art{filter:none;transition:filter 1.1s ease}
 .act7-cta{padding:.6em 0 .2em}
@@ -1258,6 +1263,17 @@ btn.addEventListener('click', () => {
       setTimeout(() => { sealedEl.style.display = 'none'; }, 600); }
     if (letterEl) letterEl.classList.add('show');
     writeLetter('#capsuleLetterText', '#capsuleSign', '#capsuleToAlbum');
+
+    /* === МИЛКА-СВЯЗКА: код капсулы оживляет акт 7 ===
+       1) снимаем блокировку (гасим затемнение + показываем кнопку)
+       2) плавно скроллим к нему — плёнка ночи ждёт */
+    const act7SceneEl = document.querySelector('[data-act="7"]');
+    if (act7SceneEl) {
+      act7SceneEl.classList.add('capsule-open');
+      setTimeout(() => {
+        act7SceneEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 700);
+    }
   } else {
     msg.style.color = '#c0152a';
     msg.textContent = 'Замок молчит. Не тот код.';
