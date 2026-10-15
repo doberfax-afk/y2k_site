@@ -427,6 +427,55 @@ body{
 .milka-body.show{
   animation:shellRise .7s cubic-bezier(.2,.9,.3,1) both;
 }
+/* ===== АКТ 7: выбор кассеты + плеер ===== */
+.cassette-pick-head{font:700 15px/1.5 'Montserrat',sans-serif;color:#cfc7e0;
+  margin:0 0 1.1em;text-align:center}
+.cassette-pick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;max-width:560px;margin:0 auto}
+.cassette-card{display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:20px 16px 18px;background:linear-gradient(160deg,#14121e,#0a0a10);
+  border:2px solid rgba(255,214,0,.28);border-radius:14px;cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;color:#e9e3f5}
+.cassette-card:hover{transform:translateY(-3px);border-color:#ffd600;
+  box-shadow:0 10px 0 0 rgba(0,0,0,.45),0 0 0 2px rgba(255,214,0,.35)}
+.cassette-card:active{transform:translateY(-1px)}
+.cassette-card:focus-visible{outline:3px solid #00f0ff;outline-offset:2px}
+.cassette-card-ico{font-size:30px;line-height:1;filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}
+.cassette-card-name{font:800 17px/1.2 'Syne',sans-serif;color:#ffd600;letter-spacing:.02em}
+.cassette-card-sub{font:500 12px/1.3 'Montserrat',sans-serif;color:#8f86a8}
+.cassette-pick-hint{margin:1.3em auto 0;max-width:46ch;text-align:center;
+  color:#9a90b4;font:500 13px/1.5 'Montserrat',sans-serif;min-height:1.4em}
+/* плеер */
+.tape-player{max-width:560px;margin:1.4em auto 0}
+.tape-face{background:linear-gradient(160deg,#1a1626,#0c0b12);border:2px solid #000;
+  border-radius:12px;padding:16px 20px;position:relative;overflow:hidden;
+  box-shadow:0 0 0 3px #000,0 10px 0 0 rgba(0,0,0,.5)}
+.tape-face-label{display:block;font:700 13px/1 'Syne',sans-serif;color:#ffd600;
+  letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:12px}
+.tape-face-spool{position:absolute;top:16px;width:26px;height:26px;border:4px solid #322848;
+  border-radius:50%;background:radial-gradient(circle,#0a0a10 30%,#1a1626 62%);
+  animation:spoolSpin 3.2s linear infinite}
+.tape-face-spool.spool-l{left:22px}
+.tape-face-spool.spool-r{right:22px}
+@keyframes spoolSpin{to{transform:rotate(360deg)}}
+.tape-face .tape-line{background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.08);
+  border-radius:6px;padding:8px 10px;overflow:hidden;white-space:nowrap}
+.tape-face .tape-line span{display:inline-block;color:#e8b54d;font:600 12px/1.2 'Orbitron',monospace;
+  letter-spacing:.18em;white-space:nowrap}
+.tape-controls{display:flex;align-items:center;gap:12px;margin-top:14px;justify-content:center}
+.tape-progress{flex:1;min-width:120px}
+.tape-bar{height:8px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.tape-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#00f0ff,#ffd600);transition:width .2s linear}
+.tape-time{display:flex;justify-content:space-between;color:#8f86a8;font:600 12px/1 'Orbitron',monospace;margin-top:5px}
+.tape-player .tape-status{text-align:center;color:#cfc7e0;font:500 13px/1.5 'Montserrat',sans-serif;
+  min-height:1.5em;margin-top:12px}
+.tape-screen{margin-top:16px;border:2px solid #000;border-radius:10px;overflow:hidden;
+  background:#000;box-shadow:0 0 0 3px #000,0 10px 0 0 rgba(0,0,0,.5)}
+.tape-video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+#tapeBackBtn{display:block;margin:1.1em auto 0}
+@media(max-width:520px){
+  .cassette-pick-grid{grid-template-columns:1fr;max-width:280px}
+}
 #pinMilkaInput{
   width:160px;font-family:'Orbitron',monospace;font-size:26px;letter-spacing:.36em;
   text-align:center;padding:14px 6px;border-radius:11px;
@@ -964,44 +1013,50 @@ video.scene-art{animation:none;object-fit:cover}
 
       <div class="act7-live" id="act7Live" hidden>
 
-      <!-- ретро-кассета (та же, что в развороте «Милка» журнала) -->
-      <div class="cassette-shell" id="milkaCassette" style="max-width:640px;margin:1.6em auto;text-align:left">
-        <div class="cassette-window">
-          <div class="cassette-spool"></div><div class="cassette-spool"></div>
-          <div class="cassette-head" aria-hidden="true"></div>
-          <div class="tape-line"><span id="tapeLyric">● ● ● КАССЕТА ЗАПЕЧАТАНА ● ● ● ● ● ● ● ●</span></div>
+      <!-- Выбор кассеты: две плёнки, которые хранит капсула №21 -->
+      <div class="cassette-pick" id="cassettePick">
+        <p class="cassette-pick-head">Капсула №21 отдала две плёнки. Выбери, какую вставить.</p>
+        <div class="cassette-pick-grid">
+          <button class="cassette-card" id="cassetteA" type="button" data-tape="a">
+            <span class="cassette-card-ico" aria-hidden="true">🎞</span>
+            <span class="cassette-card-name">Сторона A</span>
+            <span class="cassette-card-sub">плёнка нашей ночи</span>
+          </button>
+          <button class="cassette-card" id="cassetteB" type="button" data-tape="b">
+            <span class="cassette-card-ico" aria-hidden="true">📼</span>
+            <span class="cassette-card-name">Сторона B</span>
+            <span class="cassette-card-sub">память о тебе</span>
+          </button>
         </div>
-        <div class="cassette-label">Милка · послание · сторона C</div>
-        <div class="cassette-transport" style="margin-top:1.1em">
-          <button class="tape-btn" id="tapePlay" type="button" disabled aria-label="Воспроизвести" title="Воспроизвести">▶</button>
-          <button class="tape-btn" id="tapeRewind" type="button" disabled aria-label="С начала" title="С начала">⟲</button>
+        <p class="cassette-pick-hint" id="cassettePickHint">Каждая плёнка — своя история. Сначала выбери.</p>
+      </div>
+
+      <!-- Плеер: открывается после выбора кассеты -->
+      <div class="tape-player" id="tapePlayer" hidden>
+        <div class="tape-face" id="tapeFace">
+          <span class="tape-face-label" id="tapeFaceLabel">Сторона A</span>
+          <span class="tape-face-spool spool-l" aria-hidden="true"></span>
+          <span class="tape-face-spool spool-r" aria-hidden="true"></span>
+          <div class="tape-line"><span id="tapeLyric">● ● ● КАССЕТА ВСТАВЛЕНА ● ● ● ● ● ● ● ●</span></div>
+        </div>
+        <div class="tape-controls">
+          <button class="tape-btn" id="tapePlay" type="button" aria-label="Воспроизвести" title="Воспроизвести">▶</button>
+          <button class="tape-btn" id="tapeRewind" type="button" aria-label="С начала" title="С начала">⟲</button>
           <div class="tape-progress">
             <div class="tape-bar"><i id="tapeFill"></i></div>
             <div class="tape-time"><span id="tapeCur">0:00</span><span id="tapeDur">—</span></div>
           </div>
         </div>
-        <p class="tape-status" id="tapeStatus" style="margin-top:1em"><b>Кассета закрыта.</b> Введи код ниже.</p>
+        <p class="tape-status" id="tapeStatus"><b>Кассета вставлена.</b> Жми Play.</p>
 
-        <div class="milka-lock" id="milkaLock" style="margin-top:1.2em">
-          <div class="lock-ico">🔒</div>
-          <div class="lock-txt">
-            <b>Секретный код</b>
-            <span>Подсказка: день нашего знакомства (16.05) — четыре цифры.</span>
-          </div>
-          <input id="pinMilkaInput" maxlength="4" inputmode="numeric" placeholder="····" aria-label="Секретный код">
-          <button class="pin-go" id="pinMilkaGo" type="button">ОК</button>
+        <div class="tape-screen" id="tapeScreen" hidden>
+          <video id="tapeVideo" class="tape-video" controls playsinline preload="metadata">
+            <source id="tapeVideoSrc" src="video/act7_vhs.mp4" type="video/mp4">
+          </video>
         </div>
-
+        <button class="caption" id="tapeBackBtn" type="button" style="margin-top:1em;cursor:pointer">← Выбрать другую кассету</button>
       </div>
 
-      <div id="vhsSlot" style="margin:1.4em auto;width:min(320px,80%);height:120px;border:4px dashed #4a3d22;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#8a7a55;font-weight:700">
-        окно магнитофона
-      </div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="caption" id="vhsIn" style="cursor:pointer">Вставить кассету</button>
-        <button class="caption" id="vhsPlay" style="cursor:pointer;display:none">▶ Play</button>
-      </div>
-      <p id="vhsMsg" style="margin-top:1.2em;min-height:1.6em;color:var(--gold);font-weight:700"></p>
       </div><!-- /act7-live -->
     </div>
   </div>
@@ -1283,10 +1338,6 @@ inp.addEventListener('input', () => { dialFrom(inp.value.replace(/\D/g,'')); msg
 inp.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
 
 /* ================= АКТ 7: VHS ================= */
-const slot  = document.getElementById('vhsSlot');
-const vIn   = document.getElementById('vhsIn');
-const vPlay = document.getElementById('vhsPlay');
-const vMsg  = document.getElementById('vhsMsg');
 const tcOut = document.getElementById('tcOut');
 const act7Scene = document.querySelector('section[data-act="7"]');
 const act7Btn   = document.getElementById('act7PlayBtn');
@@ -1329,25 +1380,110 @@ function tickTC(){
   tcOut.textContent = `${h}:${m}:${s}`;
 }
 
-vIn.addEventListener('click', () => {
-  slot.textContent = '● кассета вставлена';
-  slot.style.borderStyle = 'solid';
-  slot.style.borderColor = '#e8b54d';
-  slot.style.color = '#e8b54d';
-  vIn.style.display = 'none';
-  vPlay.style.display = 'inline-block';
-  vMsg.textContent = 'Плёнка на месте. Жми Play.';
-});
-vPlay.addEventListener('click', () => {
-  vMsg.textContent = '▶ Включайся, Милка. Эта ночь — наша.';
-  document.querySelector('[data-act="7"]').style.background =
-    'linear-gradient(160deg,#3a2a08,#0b0a08)';
-  if (!tcTimer) tcTimer = setInterval(tickTC, 1000);
-  tcOut.classList.add('pop');
-});
+/* ================= АКТ 7: выбор кассеты + плеер ================= */
+const pick      = document.getElementById('cassettePick');
+const pickHint  = document.getElementById('cassettePickHint');
+const cardA     = document.getElementById('cassetteA');
+const cardB     = document.getElementById('cassetteB');
+const player    = document.getElementById('tapePlayer');
+const faceLabel = document.getElementById('tapeFaceLabel');
+const tPlayBtn  = document.getElementById('tapePlay');
+const tRewBtn   = document.getElementById('tapeRewind');
+const tapeFill  = document.getElementById('tapeFill');
+const tapeCur   = document.getElementById('tapeCur');
+const tapeDur   = document.getElementById('tapeDur');
+const tapeSt    = document.getElementById('tapeStatus');
+const tapeLyric = document.getElementById('tapeLyric');
+const tapeScr   = document.getElementById('tapeScreen');
+const tapeVideo = document.getElementById('tapeVideo');
+const tapeVideoSrc = document.getElementById('tapeVideoSrc');
+const backBtn   = document.getElementById('tapeBackBtn');
 
-/* ================= РЕТРО-КАССЕТА: код + письмо ================= */
-const PIN_MILKA = '1605';
+/* контент кассет — заглушки, реальные видео добавим позже.
+   data-src указывает на файл; пока общий плейсхолдер-плёнка. */
+const TAPES = {
+  a: { name: 'Сторона A', sub: 'плёнка нашей ночи', dur: '—',
+       src: 'video/act7_vhs.mp4' },
+  b: { name: 'Сторона B', sub: 'память о тебе', dur: '—',
+       src: 'video/act7_memory.mp4' },
+};
+let curTape = null, tapeTimer = null, tapeT = 0, tapeDurSec = 0;
+
+function pickTape(which, card){
+  curTape = which;
+  pickHint.textContent = TAPES[which].name + ' — ' + TAPES[which].sub;
+  /* анимация выбора: кассета «вставлена» */
+  card.classList.add('picking');
+  setTimeout(() => {
+    pick.classList.add('swap-out');
+    setTimeout(() => {
+      pick.hidden = true;
+      player.hidden = false;
+      player.classList.add('on');
+      faceLabel.textContent = TAPES[which].name;
+      tapeLyric.textContent = '● ● ● ' + TAPES[which].name.toUpperCase() + ' ВСТАВЛЕНА ● ● ●';
+      /* видеоплеер готовим, но не открываем */
+      tapeVideoSrc.src = TAPES[which].src;
+      tapeVideo.load();
+      tPlayBtn.disabled = false; tRewBtn.disabled = false;
+      tapeSt.innerHTML = '<b>Кассета вставлена.</b> Жми Play.';
+      /* по окончании анимации — показываем кнопку Play */
+      playReady();
+    }, 420);
+  }, 420);
+}
+
+function closePlayer(){
+  if (tapeTimer) { clearInterval(tapeTimer); tapeTimer = null; }
+  tapeVideo.pause();
+  tapeScr.hidden = true;
+  player.classList.remove('on');
+  player.hidden = true;
+  pick.hidden = false;
+  pick.classList.remove('swap-out');
+  cardA.classList.remove('picking'); cardB.classList.remove('picking');
+  pickHint.textContent = 'Каждая плёнка — своя история. Сначала выбери.';
+}
+
+/* анимация «вставки»: плеер получает акцент и открывает видеопанель */
+function playReady(){
+  player.classList.add('go');
+  setTimeout(() => player.classList.remove('go'), 900);
+}
+
+function startVideo(){
+  tapeScr.hidden = false;
+  tapeVideo.play().catch(() => {});
+  /* таймкод */
+  if (!tapeTimer) tapeTimer = setInterval(tickTape, 250);
+}
+
+function tickTape(){
+  if (!tapeVideo.duration) return;
+  tapeDurSec = tapeVideo.duration;
+  tapeCur.textContent = fmtT(tapeVideo.currentTime);
+  tapeDur.textContent = fmtT(tapeDurSec);
+  if (tapeFill) tapeFill.style.width = (tapeVideo.currentTime / tapeDurSec * 100) + '%';
+  tapeLyric.textContent = '● ● ● ' + (curTape ? TAPES[curTape].name : '').toUpperCase() + ' ИГРАЕТ ● ● ●';
+}
+function fmtT(s){ s = Math.floor(s); const m = Math.floor(s/60)%60, ss = s%60; return m + ':' + String(ss).padStart(2,'0'); }
+
+cardA.addEventListener('click', () => pickTape('a', cardA));
+cardB.addEventListener('click', () => pickTape('b', cardB));
+tPlayBtn.addEventListener('click', () => {
+  if (tPlayBtn.disabled) return;
+  if (tapeScr.hidden) { startVideo(); }
+  else { tapeVideo.paused ? tapeVideo.play() : tapeVideo.pause(); }
+});
+tRewBtn.addEventListener('click', () => {
+  tapeVideo.currentTime = 0;
+  tapeCur.textContent = '0:00';
+  tapeLyric.textContent = '● ● ● ПЕРЕМОТАНО В НАЧАЛО ● ● ●';
+});
+backBtn.addEventListener('click', closePlayer);
+/* письмо пишется строка за строкой почерком Caveat.
+   Общие элементы: мишень — #capsuleLetterText в акте 6,
+   объявление/подпись — #capsuleSign, #capsuleToAlbum. */
 const LETTER = [
   'Моя самая любимая девочка, Викулек!',
   'С днём рождения, моё солнышко!',
@@ -1358,24 +1494,6 @@ const LETTER = [
   'Я всегда рядом — оберегать и делать счастливой.',
   'Безумно люблю тебя!'
 ];
-const LYRICS = '● ● ● КАССЕТА ЗАПЕЧАТАНА ● ● ● ● ● ● ● ●';
-const LYRICS_ON = '▶ ...и ночь повернулась вспять · 03:00 → 04:33 · эта ночь — наша · ▶';
-
-const pinIn   = document.getElementById('pinMilkaInput');
-const pinGo   = document.getElementById('pinMilkaGo');
-const lock    = document.getElementById('milkaLock');
-const shell   = document.getElementById('milkaCassette');
-const status  = document.getElementById('tapeStatus');
-const lyr     = document.getElementById('tapeLyric');
-const tPlay   = document.getElementById('tapePlay');
-const tRew    = document.getElementById('tapeRewind');
-const tFill   = document.getElementById('tapeFill');
-const tCur    = document.getElementById('tapeCur');
-const tDur    = document.getElementById('tapeDur');
-
-/* письмо пишется строка за строкой почерком Caveat.
-   Общие элементы: мишень — #capsuleLetterText в акте 6,
-   объявление/подпись — #capsuleSign, #capsuleToAlbum. */
 function writeLetter(boxSel, signSel, albumSel){
   const letterBox = document.querySelector(boxSel);
   const signEl    = document.querySelector(signSel);
@@ -1401,64 +1519,4 @@ function writeLetter(boxSel, signSel, albumSel){
     if (toAlbum) toAlbum.classList.add('show');
   }, lines.length * 620 + 350);
 }
-
-/* прогресс-таймер ленты: условные 3:45 на воспроизведение */
-const TAPE_SECS = 225;
-let tapeTimer = null, tapeT = 0;
-function fmt(sec){
-  const m = String(Math.floor(sec/60)).padStart(1,'0');
-  const s = String(sec % 60).padStart(2,'0');
-  return `${m}:${s}`;
-}
-function startTape(){
-  if (tapeTimer) return;
-  shell.classList.add('playing');
-  tapeTimer = setInterval(() => {
-    tapeT = Math.min(TAPE_SECS, tapeT + 1);
-    tFill.style.width = (tapeT / TAPE_SECS * 100) + '%';
-    tCur.textContent = fmt(tapeT);
-    if (tapeT >= TAPE_SECS) { stopTape(); status.innerHTML = '<b>Лента доиграла.</b> Перемотай и включи снова.'; }
-  }, 1000);
-  tDur.textContent = fmt(TAPE_SECS);
-  if (tcOut) tcOut.textContent = '03:12:00';
-}
-function stopTape(){
-  clearInterval(tapeTimer); tapeTimer = null;
-  shell.classList.remove('playing');
-}
-tPlay.addEventListener('click', () => {
-  if (tPlay.disabled) return;
-  if (shell.classList.contains('playing')) { stopTape(); return; }
-  startTape();
-  status.innerHTML = '<b>Играет.</b> Сторона C — «Одна ночь».';
-});
-tRew.addEventListener('click', () => {
-  if (tRew.disabled) return;
-  stopTape(); tapeT = 0;
-  tFill.style.width = '0%'; tCur.textContent = '0:00';
-  status.innerHTML = '<b>Перемотано в начало.</b> Жми Play.';
-});
-
-function unlock(){
-  shell.classList.add('unlocked');
-  shell.classList.add('playing');
-  lock.classList.add('melting');
-  setTimeout(() => { lock.style.display = 'none'; }, 600);
-  status.innerHTML = '<b>Кассета открыта.</b> Плёнка — твоя.';
-  lyr.textContent = LYRICS_ON;
-  tPlay.disabled = false; tRew.disabled = false;
-  startTape();
-}
-pinGo.addEventListener('click', () => {
-  const v = pinIn.value.trim();
-  if (v === PIN_MILKA) {
-    unlock();
-  } else {
-    pinIn.classList.add('bad');
-    setTimeout(() => pinIn.classList.remove('bad'), 450);
-    status.innerHTML = '<b>Не тот код.</b> Замок молчит.';
-  }
-});
-pinIn.addEventListener('keydown', e => { if (e.key === 'Enter') pinGo.click(); });
-pinIn.addEventListener('input', () => { pinIn.classList.remove('bad'); status.innerHTML = '<b>Кассета закрыта.</b> Введи код ниже.'; });
 </script>
